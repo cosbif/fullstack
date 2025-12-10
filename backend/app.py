@@ -4,6 +4,7 @@ from routes.users import router as users_router
 from routes.images import router as images_router
 from database.database import Base, engine
 import models.user
+from routes.auth import router as auth_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -17,7 +18,7 @@ app = FastAPI(
 app.include_router(health_router)
 app.include_router(users_router)
 app.include_router(images_router)
-
+app.include_router(auth_router)
 
 @app.get("/")
 def root():
