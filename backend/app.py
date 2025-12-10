@@ -1,5 +1,11 @@
 from fastapi import FastAPI
 from routes.health import router as health_router
+from routes.users import router as users_router
+from routes.images import router as images_router
+from database.database import Base, engine
+import models.user
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="CleanMyData API",
@@ -9,6 +15,8 @@ app = FastAPI(
 
 # Подключение маршрутов
 app.include_router(health_router)
+app.include_router(users_router)
+app.include_router(images_router)
 
 
 @app.get("/")
