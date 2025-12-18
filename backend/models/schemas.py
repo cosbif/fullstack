@@ -14,7 +14,6 @@ class UserOut(BaseModel):
 
 
 class ProcessedImageCreate(BaseModel):
-    user_id: int
     original_path: str
     processed_path: str
 

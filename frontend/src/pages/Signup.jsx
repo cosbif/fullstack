@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../api";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -7,18 +8,12 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleSignup = async () => {
-    const res = await fetch("http://127.0.0.1:8000/users/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!res.ok) {
+    try {
+      await register(email, password);
+      navigate("/login");
+    } catch (err) {
       alert("Ошибка регистрации");
-      return;
     }
-
-    navigate("/login");
   };
 
   return (

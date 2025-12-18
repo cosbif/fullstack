@@ -1,3 +1,4 @@
 export function useAuth() {
-  return localStorage.getItem("token") !== null;
+  const token = localStorage.getItem("token");
+  return Boolean(token);
 }

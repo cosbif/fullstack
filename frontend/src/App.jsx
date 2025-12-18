@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 import History from "./pages/History";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/history" element={<History />} />
+        <Route path="/upload" element={<ProtectedRoute> <Upload /> </ProtectedRoute>} />
+        <Route path="/history" element={<ProtectedRoute> <History /> </ProtectedRoute>}  />
       </Routes>
     </Router>
   );

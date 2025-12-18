@@ -4,13 +4,15 @@ from models.schemas import UserCreate
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(
-    schemes=["argon2"],
+    schemes=["pbkdf2_sha256"],
     deprecated="auto"
 )
 
 def get_password_hash(password: str):
     return pwd_context.hash(password)
 
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 
 def create_user(db: Session, user: UserCreate):
     hashed_pwd = get_password_hash(user.password)
@@ -19,7 +21,6 @@ def create_user(db: Session, user: UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
-
 
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
